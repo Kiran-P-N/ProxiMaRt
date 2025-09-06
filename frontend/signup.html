@@ -1,66 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - ProxiMart</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - ProxiMart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-green-50">
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-white p-10 rounded-lg shadow-2xl w-96">
-            <img src="./images/ProxiMart.png" alt="Logo Image" class="w-30 h-30 mx-auto mb-2">
-            <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-            <form id="signupForm">
-                <div class="mb-4">
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" name="username" required 
-                           minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    <p class="mt-1 text-xs text-gray-500">3-20 characters, letters, numbers and underscore only</p>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" required 
-                           minlength="8"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                <div class="mb-6">
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Sign Up</button>
-            </form>
-            <p class="mt-4 text-sm text-center text-gray-600">Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Login</a></p>
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-10 rounded-lg shadow-2xl w-96">
+      <img src="./images/ProxiMart.png" alt="Logo Image" class="w-30 h-30 mx-auto mb-2">
+      <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+      <form id="signupForm">
+        
+        <!-- Email -->
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email" name="email" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+          <p id="emailError" class="text-red-600 text-xs mt-1 hidden"></p>
         </div>
+
+        <!-- Username -->
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <input type="text" id="username" name="username" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+          <p id="usernameError" class="text-red-600 text-xs mt-1 hidden"></p>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" name="password" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+          <p id="passwordError" class="text-red-600 text-xs mt-1 hidden"></p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-6">
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+          <p id="confirmPasswordError" class="text-red-600 text-xs mt-1 hidden"></p>
+        </div>
+
+        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Sign Up</button>
+      </form>
+
+      <p class="mt-4 text-sm text-center text-gray-600">
+        Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Login</a>
+      </p>
     </div>
+  </div>
 
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Store user data (replace with your backend API call)
-            const userData = {
-                username: username,
-                password: password
-            };
-            
-            console.log('User signup:', userData);
-            // Add your API call here to check username uniqueness and create account
-            
-            // Redirect to login page after successful signup
-            window.location.href = 'login.html';
-        });
-    </script>
+      const emailError = document.getElementById('emailError');
+      const usernameError = document.getElementById('usernameError');
+      const passwordError = document.getElementById('passwordError');
+      const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+      emailError.textContent = "";
+      usernameError.textContent = "";
+      passwordError.textContent = "";
+      confirmPasswordError.textContent = "";
+
+      emailError.classList.add("hidden");
+      usernameError.classList.add("hidden");
+      passwordError.classList.add("hidden");
+      confirmPasswordError.classList.add("hidden");
+
+      const takenUsernames = ["admin", "testuser", "john123"];
+
+      // Email validation (must be gmail format)
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (!emailRegex.test(email)) {
+        emailError.textContent = "Please enter a valid Gmail address.";
+        emailError.classList.remove("hidden");
+        return;
+      }
+
+      // Username validation
+      if (username.length < 5) {
+        usernameError.textContent = "Username must be at least 5 characters long.";
+        usernameError.classList.remove("hidden");
+        return;
+      }
+      if (takenUsernames.includes(username.toLowerCase())) {
+        usernameError.textContent = "This username is already taken.";
+        usernameError.classList.remove("hidden");
+        return;
+      }
+
+      // Password validation
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordRegex.test(password)) {
+        passwordError.textContent = "Password must be at least 8 characters, with letters, numbers, and a special character.";
+        passwordError.classList.remove("hidden");
+        return;
+      }
+
+      // Confirm password
+      if (password !== confirmPassword) {
+        confirmPasswordError.textContent = "Passwords do not match.";
+        confirmPasswordError.classList.remove("hidden");
+        return;
+      }
+
+      // ✅ If everything passes
+      const userData = {
+        email: email,
+        username: username,
+        password: password
+      };
+
+      console.log("User signup:", userData);
+
+      // Redirect to login page
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
 </html>
