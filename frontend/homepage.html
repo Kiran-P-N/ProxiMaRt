@@ -35,7 +35,7 @@
       background: url('images/cover.png') center center / cover no-repeat;
       position: relative;
       color: white;
-      padding: 120px 20px;
+      padding: 120px 20px 80px;
       text-align: center;
     }
     .hero::before {
@@ -56,16 +56,35 @@
       font-size: 1.2rem;
     }
 
-    /* --- Categories --- */
+    /* Search Bar */
+    .search-bar {
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .search-bar input {
+      border-radius: 30px 0 0 30px;
+      border: none;
+      padding: 12px 20px;
+    }
+    .search-bar button {
+      border-radius: 0 30px 30px 0;
+      border: none;
+      background-color: var(--green-light);
+      color: white;
+      padding: 12px 20px;
+    }
+
+    /* Categories */
     .featured-categories {
       margin: 60px 0;
       text-align: center;
     }
-    /* make each category box constrained and centered */
     .featured-categories .category-box {
       width: 100%;
-      max-width: 320px;       /* control width of card */
-      margin: 0 auto;         /* center within column */
+      max-width: 320px;
+      margin: 0 auto;
       background: #fff;
       padding: 28px 20px;
       border-radius: 8px;
@@ -85,21 +104,16 @@
       margin-bottom: 12px;
       object-fit: contain;
     }
-    .featured-categories h5 {
-      margin-top: 6px;
-      font-weight: 600;
-    }
 
-    /* --- Specials --- */
+    /* Specials */
     .specials {
       margin: 60px 0;
       text-align: center;
     }
-    /* constrain width of each specials card so they appear centered */
     .card-product {
       width: 100%;
-      max-width: 540px;       /* card max width */
-      margin: 0 auto;         /* center inside column */
+      max-width: 540px;
+      margin: 0 auto;
       border: none;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -111,9 +125,6 @@
     .card-product .card-img-top {
       height: 180px;
       object-fit: cover;
-    }
-    .card-product .card-body {
-      text-align: center;
     }
 
     /* Footer */
@@ -130,7 +141,6 @@
       color: white;
     }
 
-    /* small responsive tweaks */
     @media (max-width: 767px) {
       .hero h1 { font-size: 2rem; }
       .featured-categories .category-box { max-width: 95%; min-height: 140px; }
@@ -170,30 +180,31 @@
       <h1>Welcome to Proximart</h1>
       <p>Discover, Compare, and Review Local Businesses Near You</p>
       <a href="#categories" class="btn btn-lg" style="background-color:var(--green-light); color:white;">Explore Now</a>
+
+      <!-- Search Bar -->
+      <form class="search-bar d-flex mt-4" role="search">
+        <input class="form-control" type="search" placeholder="Search for shops, services, or items..." aria-label="Search">
+        <button class="btn" type="submit">Search</button>
+      </form>
     </div>
   </section>
 
-  <!-- Featured Categories (first) -->
+  <!-- Categories -->
   <section id="categories" class="container featured-categories">
     <h2 class="text-center mb-5">Categories</h2>
-
-    <!-- Use justify-content-center to center the row -->
     <div class="row g-4 justify-content-center">
-      <!-- each column also uses d-flex so category-box will center -->
       <div class="col-12 col-sm-8 col-md-4 d-flex">
         <div class="category-box">
           <img src="food.jpg" alt="Food">
           <h5>Food</h5>
         </div>
       </div>
-
       <div class="col-12 col-sm-8 col-md-4 d-flex">
         <div class="category-box">
           <img src="services.jpg" alt="Services">
           <h5>Services</h5>
         </div>
       </div>
-
       <div class="col-12 col-sm-8 col-md-4 d-flex">
         <div class="category-box">
           <img src="household.jpg" alt="Household Items">
@@ -203,13 +214,10 @@
     </div>
   </section>
 
-  <!-- Specials Section (second) -->
+  <!-- Specials -->
   <section id="specials" class="container specials">
     <h2 class="text-center mb-5">Today's Specials</h2>
-
-    <!-- center the row so cards appear centered under the title -->
     <div class="row g-4 justify-content-center">
-      <!-- two cards centered; on medium screens they will show up side-by-side -->
       <div class="col-12 col-md-6 d-flex">
         <div class="card card-product">
           <img src="shop1.jpg" class="card-img-top" alt="Shop 1">
@@ -223,7 +231,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-12 col-md-6 d-flex">
         <div class="card card-product">
           <img src="shop2.jpg" class="card-img-top" alt="Shop 2">
@@ -237,7 +244,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -245,9 +251,7 @@
   <footer>
     <div class="container text-center">
       <p>&copy; 2025 Proximart. All rights reserved.</p>
-      <p>
-        <a href="#">Privacy Policy</a> | <a href="#">Terms</a>
-      </p>
+      <p><a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
     </div>
   </footer>
 
