@@ -55,54 +55,65 @@
     .hero p {
       font-size: 1.2rem;
     }
-    .hero .btn {
-      background-color: var(--green-light);
-      color: white;
-      margin-top: 20px;
+
+    /* --- Categories --- */
+    .featured-categories {
+      margin: 60px 0;
+      text-align: center;
     }
-    .hero .btn:hover {
-      background-color: var(--green-base);
+    /* make each category box constrained and centered */
+    .featured-categories .category-box {
+      width: 100%;
+      max-width: 320px;       /* control width of card */
+      margin: 0 auto;         /* center within column */
+      background: #fff;
+      padding: 28px 20px;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
+    .featured-categories .category-box:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .featured-categories img {
+      max-height: 70px;
+      margin-bottom: 12px;
+      object-fit: contain;
+    }
+    .featured-categories h5 {
+      margin-top: 6px;
+      font-weight: 600;
     }
 
-    /* Specials Section */
+    /* --- Specials --- */
     .specials {
       margin: 60px 0;
+      text-align: center;
     }
+    /* constrain width of each specials card so they appear centered */
     .card-product {
+      width: 100%;
+      max-width: 540px;       /* card max width */
+      margin: 0 auto;         /* center inside column */
       border: none;
-      background: white;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .card-product:hover {
       transform: translateY(-5px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
-    .card-product .btn {
-      background-color: var(--green-base);
-      color: white;
+    .card-product .card-img-top {
+      height: 180px;
+      object-fit: cover;
     }
-    .card-product .btn:hover {
-      background-color: var(--green-dark);
-    }
-
-    /* Categories */
-    .featured-categories {
-      margin: 60px 0;
-    }
-    .featured-categories .category-box {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .featured-categories .category-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .featured-categories img {
-      max-height: 80px;
-      margin-bottom: 15px;
+    .card-product .card-body {
+      text-align: center;
     }
 
     /* Footer */
@@ -117,6 +128,13 @@
     }
     footer a:hover {
       color: white;
+    }
+
+    /* small responsive tweaks */
+    @media (max-width: 767px) {
+      .hero h1 { font-size: 2rem; }
+      .featured-categories .category-box { max-width: 95%; min-height: 140px; }
+      .card-product { max-width: 95%; }
     }
   </style>
 </head>
@@ -151,48 +169,75 @@
       <img src="ProxiMart.png" alt="Proximart Logo" style="height:100px; margin-bottom:20px; border-radius:12px;">
       <h1>Welcome to Proximart</h1>
       <p>Discover, Compare, and Review Local Businesses Near You</p>
-      <a href="#specials" class="btn btn-lg">Shop Specials</a>
+      <a href="#categories" class="btn btn-lg" style="background-color:var(--green-light); color:white;">Explore Now</a>
     </div>
   </section>
 
-  <!-- Specials Section -->
+  <!-- Featured Categories (first) -->
+  <section id="categories" class="container featured-categories">
+    <h2 class="text-center mb-5">Categories</h2>
+
+    <!-- Use justify-content-center to center the row -->
+    <div class="row g-4 justify-content-center">
+      <!-- each column also uses d-flex so category-box will center -->
+      <div class="col-12 col-sm-8 col-md-4 d-flex">
+        <div class="category-box">
+          <img src="food.jpg" alt="Food">
+          <h5>Food</h5>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-8 col-md-4 d-flex">
+        <div class="category-box">
+          <img src="services.jpg" alt="Services">
+          <h5>Services</h5>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-8 col-md-4 d-flex">
+        <div class="category-box">
+          <img src="household.jpg" alt="Household Items">
+          <h5>Household Items</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specials Section (second) -->
   <section id="specials" class="container specials">
-    <h2 class="text-center mb-5">Specials</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
+    <h2 class="text-center mb-5">Today's Specials</h2>
+
+    <!-- center the row so cards appear centered under the title -->
+    <div class="row g-4 justify-content-center">
+      <!-- two cards centered; on medium screens they will show up side-by-side -->
+      <div class="col-12 col-md-6 d-flex">
         <div class="card card-product">
-          <img src="product1.jpg" class="card-img-top" alt="Product 1">
+          <img src="shop1.jpg" class="card-img-top" alt="Shop 1">
           <div class="card-body">
-            <h5 class="card-title">Product 1</h5>
-            <p class="card-text">Short description for product 1.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="text-muted">$99</span>
-              <a href="#" class="btn btn-sm">View Details</a>
+            <h5 class="card-title">Shop 1</h5>
+            <p class="card-text">10% off on all items today.</p>
+            <div class="d-flex justify-content-between align-items-center px-3">
+              <span class="text-muted">Discount</span>
+              <a href="#" class="btn btn-sm" style="background-color:var(--green-base); color:white;">View Shop</a>
             </div>
           </div>
         </div>
       </div>
-      <!-- Repeat cards for more products -->
-    </div>
-  </section>
 
-  <!-- Featured Categories -->
-  <section class="container featured-categories">
-    <h2 class="text-center mb-5">Categories</h2>
-    <div class="row g-4">
-      <div class="col-md-3 text-center">
-        <div class="category-box">
-          <img src="category1.jpg" alt="Category 1" class="img-fluid">
-          <h5>Category 1</h5>
+      <div class="col-12 col-md-6 d-flex">
+        <div class="card card-product">
+          <img src="shop2.jpg" class="card-img-top" alt="Shop 2">
+          <div class="card-body">
+            <h5 class="card-title">Shop 2</h5>
+            <p class="card-text">Flat 20% discount on electronics.</p>
+            <div class="d-flex justify-content-between align-items-center px-3">
+              <span class="text-muted">Discount</span>
+              <a href="#" class="btn btn-sm" style="background-color:var(--green-base); color:white;">View Shop</a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-3 text-center">
-        <div class="category-box">
-          <img src="category2.jpg" alt="Category 2" class="img-fluid">
-          <h5>Category 2</h5>
-        </div>
-      </div>
-      <!-- More categories -->
+
     </div>
   </section>
 
