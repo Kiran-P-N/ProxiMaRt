@@ -11,8 +11,9 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
     }
+    /* ✅ Hero Section with Green Gradient */
     .hero {
-      background: linear-gradient(to right, #007bff, #00c6ff);
+      background: linear-gradient(to right, #16a34a, #22c55e); /* green shades */
       color: white;
       padding: 80px 20px;
       text-align: center;
@@ -32,9 +33,38 @@
       transform: translateY(-5px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
+    /* ✅ Navbar Green */
+    .navbar {
+      background-color: #15803d !important; /* base green */
+    }
+    .navbar .nav-link {
+      color: #e5e5e5 !important;
+    }
+    .navbar .nav-link.active {
+      color: #fff !important;
+      font-weight: bold;
+    }
+    .navbar .btn-outline-light {
+      border-color: #fff;
+      color: #fff;
+    }
+    .navbar .btn-outline-light:hover {
+      background-color: #fff;
+      color: #15803d;
+    }
+    /* ✅ Custom Button */
+    .btn-custom {
+      background-color: #16a34a;
+      color: white;
+    }
+    .btn-custom:hover {
+      background-color: #15803d;
+      color: white;
+    }
+    /* ✅ Footer Green */
     footer {
-      background-color: #343a40;
-      color: #bbb;
+      background-color: #14532d; /* dark green */
+      color: #ddd;
       padding: 20px;
       text-align: center;
       margin-top: 40px;
@@ -50,9 +80,9 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <a class="navbar-brand fw-bold d-flex align-items-center text-white" href="#">
         <img src="ProxiMart.png" alt="Proximart Logo">
         Proximart
       </a>
@@ -73,7 +103,6 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <!-- Centered Logo -->
     <img src="ProxiMart.png" alt="Proximart Logo">
     <h1 class="fw-bold">Welcome to Proximart</h1>
     <p class="lead">Discover, Compare, and Review Local Businesses Near You</p>
@@ -82,7 +111,7 @@
         <div class="col-md-6">
           <form class="d-flex">
             <input class="form-control form-control-lg me-2" type="search" placeholder="Search services (e.g., plumber, bakery)">
-            <button class="btn btn-light btn-lg" type="submit">Search</button>
+            <button class="btn btn-custom btn-lg" type="submit">Search</button>
           </form>
         </div>
       </div>
