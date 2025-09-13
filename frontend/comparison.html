@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proximart — Compare Vendors</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f7f9fc; }
+    .compare-hero { background: linear-gradient(90deg,#007bff,#00c6ff); color:#fff; padding:40px 20px; border-radius:8px; }
+    .card { border-radius:12px; }
+    table thead th { background:#f1f5f9; }
+    .badge-distance { background: rgba(0,123,255,0.12); color:#007bff; border-radius:8px; padding:4px 8px; }
+    .highlight-best { background: linear-gradient(90deg,#e6fffa,#e6fff2); }
+    @media (min-width: 992px) { .tables-side-by-side { display:flex; gap:24px; } }
+  </style>
+</head>
+<body>
+  <div class="container my-4">
+    <header class="compare-hero mb-4">
+      <div class="d-flex align-items-center justify-content-between flex-column flex-md-row">
+        <div>
+          <h1 class="h3 fw-bold mb-1">Compare Vendors</h1>
+          <p class="mb-0">Quickly compare prices, descriptions, distance and ratings for similar products or services around you.</p>
+        </div>
+        <div class="mt-3 mt-md-0">
+          <button class="btn btn-light me-2" id="exportAllBtn">Export All CSV</button>
+          <button class="btn btn-outline-light" id="printBtn">Print</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="tables-side-by-side">
+        <!-- Table 1: Product Comparison -->
+        <section class="card p-3 flex-fill">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h5 mb-0">Product Comparison — Coffee Machines</h2>
+            <small class="text-muted">Showing 4 vendors</small>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle" id="productTable">
+              <thead>
+                <tr>
+                  <th>Vendor</th>
+                  <th>Price (₹)</th>
+                  <th>Description</th>
+                  <th>Rating</th>
+                  <th>Distance</th>
+                  <th>Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>CafeTech Supplies</strong><br>
+                    <small class="text-muted">Contact: 98765 43210</small>
+                  </td>
+                  <td>7,499</td>
+                  <td>Semi-automatic espresso machine, 15-bar pump, 1L water tank.</td>
+                  <td>4.5 ⭐</td>
+                  <td><span class="badge-distance">1.2 km</span></td>
+                  <td>In stock</td>
+                </tr>
+                <tr class="highlight-best">
+                  <td>
+                    <strong>BrewMasters</strong><br>
+                    <small class="text-muted">Contact: 91234 56789</small>
+                  </td>
+                  <td>6,990</td>
+                  <td>Compact drip + steam frother, energy saving mode, 2-year warranty.</td>
+                  <td>4.6 ⭐</td>
+                  <td><span class="badge-distance">0.8 km</span></td>
+                  <td>Only 2 left</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>KitchenPro</strong><br>
+                    <small class="text-muted">Contact: 99887 66554</small>
+                  </td>
+                  <td>8,250</td>
+                  <td>Premium espresso + grinder bundle, removable water tank, stainless steel.</td>
+                  <td>4.8 ⭐</td>
+                  <td><span class="badge-distance">3.6 km</span></td>
+                  <td>Pre-order</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>HomeBrew Mart</strong><br>
+                    <small class="text-muted">Contact: 90123 45678</small>
+                  </td>
+                  <td>6,750</td>
+                  <td>Single-serve pod compatible model, fast heat-up, small footprint.</td>
+                  <td>4.2 ⭐</td>
+                  <td><span class="badge-distance">2.1 km</span></td>
+                  <td>In stock</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Table 2: Service Comparison -->
+        <section class="card p-3 flex-fill mt-3 mt-lg-0">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h5 mb-0">Service Comparison — Home Cleaning (2 BHK)</h2>
+            <small class="text-muted">Showing 4 vendors</small>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle" id="serviceTable">
+              <thead>
+                <tr>
+                  <th>Vendor</th>
+                  <th>Price (₹)</th>
+                  <th>Service Description</th>
+                  <th>Rating</th>
+                  <th>Distance</th>
+                  <th>Availability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Sparkle Cleaners</strong><br>
+                    <small class="text-muted">Contact: 81122 33445</small>
+                  </td>
+                  <td>1,200</td>
+                  <td>2 cleaners for 3 hours, includes deep kitchen & bathroom cleaning.</td>
+                  <td>4.4 ⭐</td>
+                  <td><span class="badge-distance">2.0 km</span></td>
+                  <td>Slots today</td>
+                </tr>
+                <tr class="highlight-best">
+                  <td>
+                    <strong>QuickFix Home Services</strong><br>
+                    <small class="text-muted">Contact: 79990 12345</small>
+                  </td>
+                  <td>999</td>
+                  <td>Standard clean: 2 cleaners, supplies included, 2.5 hours.</td>
+                  <td>4.3 ⭐</td>
+                  <td><span class="badge-distance">0.7 km</span></td>
+                  <td>Limited slots</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>ProCare Maids</strong><br>
+                    <small class="text-muted">Contact: 73344 55667</small>
+                  </td>
+                  <td>1,450</td>
+                  <td>Deep clean with eco-friendly products, includes ironing (optional).</td>
+                  <td>4.7 ⭐</td>
+                  <td><span class="badge-distance">4.1 km</span></td>
+                  <td>Pre-book</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>NeighbourHelp</strong><br>
+                    <small class="text-muted">Contact: 76655 44332</small>
+                  </td>
+                  <td>850</td>
+                  <td>Budget-friendly clean, 1 cleaner, 2 hours, no supplies included.</td>
+                  <td>3.9 ⭐</td>
+                  <td><span class="badge-distance">1.8 km</span></td>
+                  <td>Today (limited)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Notes and legend -->
+      <div class="card mt-4 p-3">
+        <h3 class="h6">Legend & Notes</h3>
+        <ul>
+          <li><strong>Distance</strong> is the straight-line distance from your saved location (approx.).</li>
+          <li><strong>Price</strong> is shown in Indian Rupees (₹) — taxes and travel charges may apply.</li>
+          <li>Use <em>Export</em> to download table data as CSV or <em>Print</em> for a hard copy.</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // export a single table to CSV
+    function tableToCSV(table) {
+      const rows = Array.from(table.querySelectorAll('tr'));
+      return rows.map(row => {
+        const cols = Array.from(row.querySelectorAll('th,td'));
+        return cols.map(c => '"' + c.innerText.replace(/"/g,'""') + '"').join(',');
+      }).join('\n');
+    }
+
+    function downloadCSV(filename, text) {
+      const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    document.getElementById('exportAllBtn').addEventListener('click', () => {
+      const pCSV = tableToCSV(document.getElementById('productTable'));
+      const sCSV = tableToCSV(document.getElementById('serviceTable'));
+      downloadCSV('products_comparison.csv', pCSV);
+      // small delay to allow two downloads on some browsers (fallback)
+      setTimeout(() => downloadCSV('services_comparison.csv', sCSV), 500);
+    });
+
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    // Optional: simple client-side sort on numeric columns when header clicked
+    document.querySelectorAll('table').forEach(table => {
+      table.querySelectorAll('thead th').forEach((th, index) => {
+        th.style.cursor = 'pointer';
+        th.title = 'Click to sort';
+        th.addEventListener('click', () => {
+          const tbody = table.tBodies[0];
+          const rows = Array.from(tbody.querySelectorAll('tr'));
+          const isNumeric = (r) => !isNaN(parseFloat(r.cells[index].innerText.replace(/[^0-9.]/g,'')));
+          const sorted = rows.sort((a,b) => {
+            const aText = a.cells[index].innerText.trim();
+            const bText = b.cells[index].innerText.trim();
+            if (isNumeric(a) && isNumeric(b)) {
+              return parseFloat(aText.replace(/[^0-9.]/g,'')) - parseFloat(bText.replace(/[^0-9.]/g,''));
+            }
+            return aText.localeCompare(bText);
+          });
+          // toggle ascending/descending
+          if (th.dataset.order === 'asc') { sorted.reverse(); th.dataset.order = 'desc'; }
+          else { th.dataset.order = 'asc'; }
+          tbody.append(...sorted);
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

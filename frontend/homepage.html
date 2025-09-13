@@ -1,89 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proximart - Home</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
+    :root {
+      --green-base: #16a34a;
+      --green-dark: #14532d;
+      --green-light: #22c55e;
+      --text-dark: #333;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f5f5f5;
+      color: var(--text-dark);
     }
-    /* ✅ Hero Section with Green Gradient */
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--green-dark);
+    }
+    .navbar-brand, .navbar-nav .nav-link {
+      color: #fff !important;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--green-light) !important;
+    }
+
+    /* Hero Section */
     .hero {
-      background: linear-gradient(to right, #16a34a, #22c55e); /* green shades */
+      background: url('images/cover.png') center center / cover no-repeat;
+      position: relative;
       color: white;
-      padding: 80px 20px;
+      padding: 120px 20px;
       text-align: center;
     }
-    .hero img {
-      height: 120px;
-      width: auto;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
     }
-    .feature-card {
-      border-radius: 12px;
-      transition: transform 0.2s;
+    .hero .hero-content {
+      position: relative;
+      z-index: 1;
     }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-    /* ✅ Navbar Green */
-    .navbar {
-      background-color: #15803d !important; /* base green */
-    }
-    .navbar .nav-link {
-      color: #e5e5e5 !important;
-    }
-    .navbar .nav-link.active {
-      color: #fff !important;
+    .hero h1 {
+      font-size: 3rem;
       font-weight: bold;
     }
-    .navbar .btn-outline-light {
-      border-color: #fff;
-      color: #fff;
+    .hero p {
+      font-size: 1.2rem;
     }
-    .navbar .btn-outline-light:hover {
-      background-color: #fff;
-      color: #15803d;
+    .hero .btn {
+      background-color: var(--green-light);
+      color: white;
+      margin-top: 20px;
     }
-    /* ✅ Custom Button */
-    .btn-custom {
-      background-color: #16a34a;
+    .hero .btn:hover {
+      background-color: var(--green-base);
+    }
+
+    /* Specials Section */
+    .specials {
+      margin: 60px 0;
+    }
+    .card-product {
+      border: none;
+      background: white;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .card-product .btn {
+      background-color: var(--green-base);
       color: white;
     }
-    .btn-custom:hover {
-      background-color: #15803d;
-      color: white;
+    .card-product .btn:hover {
+      background-color: var(--green-dark);
     }
-    /* ✅ Footer Green */
+
+    /* Categories */
+    .featured-categories {
+      margin: 60px 0;
+    }
+    .featured-categories .category-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .featured-categories .category-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .featured-categories img {
+      max-height: 80px;
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
     footer {
-      background-color: #14532d; /* dark green */
-      color: #ddd;
-      padding: 20px;
-      text-align: center;
-      margin-top: 40px;
+      background-color: var(--green-dark);
+      color: #ccc;
+      padding: 40px 20px;
     }
-    .navbar-brand img {
-      height: 40px;
-      width: auto;
-      margin-right: 10px;
-      border-radius: 6px;
+    footer a {
+      color: #eee;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: white;
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold d-flex align-items-center text-white" href="#">
-        <img src="ProxiMart.png" alt="Proximart Logo">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <img src="ProxiMart.png" alt="Proximart Logo" style="height:40px; border-radius:6px; margin-right:10px;">
         Proximart
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -92,10 +135,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Compare</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-          <li class="nav-item"><a class="btn btn-outline-light ms-2" href="login.html">Logout</a></li>
+          <li class="nav-item"><a class="btn btn-light ms-2" href="login.html">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -103,51 +147,65 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <img src="ProxiMart.png" alt="Proximart Logo">
-    <h1 class="fw-bold">Welcome to Proximart</h1>
-    <p class="lead">Discover, Compare, and Review Local Businesses Near You</p>
-    <div class="container mt-4">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <form class="d-flex">
-            <input class="form-control form-control-lg me-2" type="search" placeholder="Search services (e.g., plumber, bakery)">
-            <button class="btn btn-custom btn-lg" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
+    <div class="hero-content">
+      <img src="ProxiMart.png" alt="Proximart Logo" style="height:100px; margin-bottom:20px; border-radius:12px;">
+      <h1>Welcome to Proximart</h1>
+      <p>Discover, Compare, and Review Local Businesses Near You</p>
+      <a href="#specials" class="btn btn-lg">Shop Specials</a>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="container my-5">
-    <div class="row text-center">
+  <!-- Specials Section -->
+  <section id="specials" class="container specials">
+    <h2 class="text-center mb-5">Specials</h2>
+    <div class="row g-4">
       <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>🔍 Search</h4>
-          <p>Find local businesses and services quickly with our smart search feature.</p>
+        <div class="card card-product">
+          <img src="product1.jpg" class="card-img-top" alt="Product 1">
+          <div class="card-body">
+            <h5 class="card-title">Product 1</h5>
+            <p class="card-text">Short description for product 1.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted">$99</span>
+              <a href="#" class="btn btn-sm">View Details</a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>⚖ Compare</h4>
-          <p>Compare businesses side by side by price, rating, and location.</p>
+      <!-- Repeat cards for more products -->
+    </div>
+  </section>
+
+  <!-- Featured Categories -->
+  <section class="container featured-categories">
+    <h2 class="text-center mb-5">Categories</h2>
+    <div class="row g-4">
+      <div class="col-md-3 text-center">
+        <div class="category-box">
+          <img src="category1.jpg" alt="Category 1" class="img-fluid">
+          <h5>Category 1</h5>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>⭐ Reviews</h4>
-          <p>Read and share reviews to make informed decisions with confidence.</p>
+      <div class="col-md-3 text-center">
+        <div class="category-box">
+          <img src="category2.jpg" alt="Category 2" class="img-fluid">
+          <h5>Category 2</h5>
         </div>
       </div>
+      <!-- More categories -->
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Proximart. All rights reserved.</p>
+    <div class="container text-center">
+      <p>&copy; 2025 Proximart. All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms</a>
+      </p>
+    </div>
   </footer>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
