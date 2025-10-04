@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-green-50">    
-  <div class="flex items-center justify-center min-h-screen">
-    <div class="bg-white p-10 rounded-lg shadow-2xl w-96">
-      <img src="./images/ProxiMart.png" alt="Logo Image" class="w-30 h-30 mx-auto mb-2">
-      <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-      <form id="loginForm">
-        <div class="mb-4">
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input type="text" id="username" name="username" required 
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-          <p id="usernameError" class="text-red-600 text-xs mt-1 hidden"></p>
+<body class="bg-green-50">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-10 rounded-lg shadow-2xl w-96">
+            <img src="./images/ProxiMart.png" alt="Logo Image" class="w-30 h-30 mx-auto mb-2">
+            <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+            <form id="loginForm">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" required 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" required 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Login</button>
+            </form>
+            <p class="mt-4 text-sm text-center text-gray-600">Don't have an account? <a href="signup.html" class="text-blue-600 hover:underline">Sign up</a></p>
         </div>
-        <div class="mb-6">
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <input type="password" id="password" name="password" required 
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-          <p id="passwordError" class="text-red-600 text-xs mt-1 hidden"></p>
-        </div>
-        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Login</button>
-      </form>
-      <p class="mt-4 text-sm text-center text-gray-600">Don't have an account? 
-        <a href="signup.html" class="text-blue-600 hover:underline">Sign up</a>
-      </p>
     </div>
-  </div>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const usernameError = document.getElementById('usernameError');
-      const passwordError = document.getElementById('passwordError');
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
 
-      usernameError.textContent = "";
-      passwordError.textContent = "";
-      usernameError.classList.add("hidden");
-      passwordError.classList.add("hidden");
+            try {
+                const response = await fetch('http://localhost:8080/api/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, password: password })
+                });
 
-      const takenUsernames = ["admin", "testuser", "john123"];
+                const data = await response.json();
 
-      if (username.length < 5) {
-        usernameError.textContent = "Username must be at least 5 characters long.";
-        usernameError.classList.remove("hidden");
-        return;
-      }
-
-      if (takenUsernames.includes(username.toLowerCase())) {
-        usernameError.textContent = "This username is already taken.";
-        usernameError.classList.remove("hidden");
-        return;
-      }
-
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      if (!passwordRegex.test(password)) {
-        passwordError.textContent = "Password must be at least 8 characters long and include letters, numbers, and a special character.";
-        passwordError.classList.remove("hidden");
-        return;
-      }
-
-      const loginData = {
-        username: username,
-        password: password
-      };
-
-      console.log('Login attempt:', loginData);
-
-      // ✅ If login successful → redirect
-      window.location.href = "homepage.html";
-    });
-  </script>
+                if (data.success) {
+                    // --- THE FIX IS HERE ---
+                    // We save the entire user object using the key 'currentUser'.
+                    // This ensures consistency with vendor.html.
+                    localStorage.setItem('currentUser', JSON.stringify(data));
+                    
+                    // Redirect based on role
+                    switch(data.role) {
+                        case 'admin':
+                            window.location.href = 'admin.html';
+                            break;
+                        case 'vendor':
+                            window.location.href = 'vendor.html';
+                            break;
+                        case 'student':
+                            window.location.href = 'index.html';
+                            break;
+                        default:
+                            alert('Invalid user role');
+                    }
+                } else {
+                    alert(data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during login');
+            }
+        });
+    </script>
 </body>
 </html>
+

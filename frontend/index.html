@@ -1,124 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proximart - Home</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-    }
-    .hero {
-      background: linear-gradient(to right, #007bff, #00c6ff);
-      color: white;
-      padding: 80px 20px;
-      text-align: center;
-    }
-    .hero img {
-      height: 120px;
-      width: auto;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .feature-card {
-      border-radius: 12px;
-      transition: transform 0.2s;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-    footer {
-      background-color: #343a40;
-      color: #bbb;
-      padding: 20px;
-      text-align: center;
-      margin-top: 40px;
-    }
-    .navbar-brand img {
-      height: 40px;
-      width: auto;
-      margin-right: 10px;
-      border-radius: 6px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProxiMart - Home</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Optional, for a nicer look) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-        <img src="ProxiMart.png" alt="Proximart Logo">
-        Proximart
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Compare</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-          <li class="nav-item"><a class="btn btn-outline-light ms-2" href="login.html">Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    <!-- Navbar -->
+    <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo and Brand -->
+                <a class="flex items-center space-x-3" href="index.html">
+                    <img src="images/ProxiMart.png" alt="Proximart Logo" class="h-10 w-10 rounded-md">
+                    <span class="text-2xl font-bold">ProxiMart</span>
+                </a>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <!-- Centered Logo -->
-    <img src="ProxiMart.png" alt="Proximart Logo">
-    <h1 class="fw-bold">Welcome to Proximart</h1>
-    <p class="lead">Discover, Compare, and Review Local Businesses Near You</p>
-    <div class="container mt-4">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <form class="d-flex">
-            <input class="form-control form-control-lg me-2" type="search" placeholder="Search services (e.g., plumber, bakery)">
-            <button class="btn btn-light btn-lg" type="submit">Search</button>
-          </form>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="hover:text-green-300 transition-colors">Home</a>
+                    <a href="#specials" class="hover:text-green-300 transition-colors">Shops</a>
+                    <!-- THE PROFILE LINK IS NOW ADDED HERE -->
+                    <a href="profile.html" class="font-semibold hover:text-green-300 transition-colors">Profile</a>
+                    <a href="cart.html" class="relative">
+                        <img src="images/carticon.png" alt="Cart" class="h-8 w-8">
+                        <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="login.html" class="bg-white text-green-800 font-semibold px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Logout</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="container my-5">
-    <div class="row text-center">
-      <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>🔍 Search</h4>
-          <p>Find local businesses and services quickly with our smart search feature.</p>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block hover:text-green-300 transition-colors">Home</a>
+            <a href="#specials" class="block hover:text-green-300 transition-colors">Shops</a>
+            <!-- THE PROFILE LINK IS NOW ADDED HERE -->
+            <a href="profile.html" class="block font-semibold hover:text-green-300 transition-colors">Profile</a>
+            <a href="cart.html" class="block hover:text-green-300 transition-colors">Cart</a>
+            <a href="login.html" class="block bg-white text-green-800 font-semibold px-4 py-2 rounded-full text-center mt-2">Logout</a>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>⚖ Compare</h4>
-          <p>Compare businesses side by side by price, rating, and location.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card feature-card p-4">
-          <h4>⭐ Reviews</h4>
-          <p>Read and share reviews to make informed decisions with confidence.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Proximart. All rights reserved.</p>
-  </footer>
+    <!-- Hero Section -->
+    <section class="relative text-white">
+        <img src="images/cover.png" alt="Grocery background" class="w-full h-96 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+            <img src="images/ProxiMart.png" alt="Proximart Logo" class="h-24 w-24 mb-4 rounded-xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to ProxiMart</h1>
+            <p class="text-lg md:text-xl mb-6">Discover, Compare, and Review Local Businesses Near You</p>
+            
+            <!-- Search Bar -->
+            <div class="w-full max-w-xl">
+                <div class="flex rounded-full bg-white shadow-lg p-1">
+                    <input class="w-full rounded-full py-3 px-6 text-gray-700 leading-tight focus:outline-none" type="text" placeholder="Search for shops, services, or items...">
+                    <button class="bg-green-600 text-white rounded-full p-3 hover:bg-green-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Categories -->
+    <section id="categories" class="container mx-auto py-16 px-4 text-center">
+        <h2 class="text-3xl font-bold mb-10">Categories</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Category 1 -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
+                <img src="images/food.jpg" alt="Food" class="h-20 mb-4">
+                <h5 class="text-xl font-semibold">Food</h5>
+            </div>
+            <!-- Category 2 -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
+                <img src="images/services.jpg" alt="Services" class="h-20 mb-4">
+                <h5 class="text-xl font-semibold">Services</h5>
+            </div>
+            <!-- Category 3 -->
+            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
+                <img src="images/household.jpg" alt="Household Items" class="h-20 mb-4">
+                <h5 class="text-xl font-semibold">Household Items</h5>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specials -->
+    <section id="specials" class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-10">Our Shops</h2>
+            <div id="shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Shop cards will be dynamically inserted here by script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-800 text-gray-300 py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 ProxiMart. All rights reserved.</p>
+            <p><a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
+        </div>
+    </footer>
+    
+    <script src="script.js" defer></script>
 </body>
 </html>
+
