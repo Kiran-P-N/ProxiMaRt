@@ -15,7 +15,7 @@ public class DBConnection {
     private static final String DB_USER = "root"; 
     
     // Replace "your_mysql_password" with the password you set for MySQL.
-    private static final String DB_PASSWORD = "root";
+    private static final String DB_PASSWORD = "opensql";
 
     /**
      * Establishes and returns a connection to the database.

@@ -6,7 +6,7 @@
     <title>ProxiMart - Home</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Optional, for a nicer look) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,15 +28,14 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="hover:text-green-300 transition-colors">Home</a>
-                    <a href="#specials" class="hover:text-green-300 transition-colors">Shops</a>
-                    <!-- THE PROFILE LINK IS NOW ADDED HERE -->
-                    <a href="profile.html" class="font-semibold hover:text-green-300 transition-colors">Profile</a>
+                    <a href="index.html" class="font-semibold hover:text-green-300 transition-colors">Home</a>
+                    <a href="#shops" class="hover:text-green-300 transition-colors">Shops</a>
+                    <a href="profile.html" class="hover:text-green-300 transition-colors">Profile</a>
                     <a href="cart.html" class="relative">
                         <img src="images/carticon.png" alt="Cart" class="h-8 w-8">
                         <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </a>
-                    <a href="login.html" class="bg-white text-green-800 font-semibold px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Logout</a>
+                    <a href="login.html" id="logout-btn-desktop" class="bg-white text-green-800 font-semibold px-4 py-2 rounded-full hover:bg-gray-200 transition-colors">Logout</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -51,12 +50,11 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2">
-            <a href="index.html" class="block hover:text-green-300 transition-colors">Home</a>
-            <a href="#specials" class="block hover:text-green-300 transition-colors">Shops</a>
-            <!-- THE PROFILE LINK IS NOW ADDED HERE -->
-            <a href="profile.html" class="block font-semibold hover:text-green-300 transition-colors">Profile</a>
+            <a href="index.html" class="block font-semibold hover:text-green-300 transition-colors">Home</a>
+            <a href="#shops" class="block hover:text-green-300 transition-colors">Shops</a>
+            <a href="profile.html" class="block hover:text-green-300 transition-colors">Profile</a>
             <a href="cart.html" class="block hover:text-green-300 transition-colors">Cart</a>
-            <a href="login.html" class="block bg-white text-green-800 font-semibold px-4 py-2 rounded-full text-center mt-2">Logout</a>
+            <a href="login.html" id="logout-btn-mobile" class="block bg-white text-green-800 font-semibold px-4 py-2 rounded-full text-center mt-2">Logout</a>
         </div>
     </nav>
 
@@ -67,12 +65,12 @@
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
             <img src="images/ProxiMart.png" alt="Proximart Logo" class="h-24 w-24 mb-4 rounded-xl">
             <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to ProxiMart</h1>
-            <p class="text-lg md:text-xl mb-6">Discover, Compare, and Review Local Businesses Near You</p>
+            <p class="text-lg md:text-xl mb-6">Your Connection to Local Shops</p>
             
             <!-- Search Bar -->
             <div class="w-full max-w-xl">
                 <div class="flex rounded-full bg-white shadow-lg p-1">
-                    <input class="w-full rounded-full py-3 px-6 text-gray-700 leading-tight focus:outline-none" type="text" placeholder="Search for shops, services, or items...">
+                    <input class="w-full rounded-full py-3 px-6 text-gray-700 leading-tight focus:outline-none" type="text" placeholder="Search for shops or items...">
                     <button class="bg-green-600 text-white rounded-full p-3 hover:bg-green-700 focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
@@ -81,34 +79,13 @@
         </div>
     </section>
 
-    <!-- Categories -->
-    <section id="categories" class="container mx-auto py-16 px-4 text-center">
-        <h2 class="text-3xl font-bold mb-10">Categories</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Category 1 -->
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
-                <img src="images/food.jpg" alt="Food" class="h-20 mb-4">
-                <h5 class="text-xl font-semibold">Food</h5>
-            </div>
-            <!-- Category 2 -->
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
-                <img src="images/services.jpg" alt="Services" class="h-20 mb-4">
-                <h5 class="text-xl font-semibold">Services</h5>
-            </div>
-            <!-- Category 3 -->
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300">
-                <img src="images/household.jpg" alt="Household Items" class="h-20 mb-4">
-                <h5 class="text-xl font-semibold">Household Items</h5>
-            </div>
-        </div>
-    </section>
-
-    <!-- Specials -->
-    <section id="specials" class="bg-gray-100 py-16">
+    <!-- Shops Section (Formerly Specials) -->
+    <section id="shops" class="bg-gray-100 py-16">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-10">Our Shops</h2>
-            <div id="shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Shop cards will be dynamically inserted here by script.js -->
+            <div id="shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Shop cards will be dynamically inserted here by your script.js -->
+                <p class="col-span-full text-gray-500">Loading shops...</p>
             </div>
         </div>
     </section>
@@ -120,7 +97,8 @@
             <p><a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
         </div>
     </footer>
-    
+
+    <!-- This links to your existing script.js file -->
     <script src="script.js" defer></script>
 </body>
 </html>
