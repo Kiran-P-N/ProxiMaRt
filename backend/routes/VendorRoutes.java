@@ -34,23 +34,17 @@ public class VendorRoutes implements HttpHandler {
             if ("GET".equals(exchange.getRequestMethod())) {
                 String query = exchange.getRequestURI().getQuery();
                 String searchTerm = getQueryParam(query, "q");
-                String vendorIdStr = getQueryParam(query, "id"); // <-- ADDED THIS LINE
+                String vendorIdStr = getQueryParam(query, "id");
 
                 if (vendorIdStr != null) {
-                    // --- NEW LOGIC: If an ID is provided, get a single vendor ---
-                    System.out.println("[DEBUG] Fetching single vendor with ID: " + vendorIdStr);
                     int vendorId = Integer.parseInt(vendorIdStr);
                     Vendors vendor = getVendorById(vendorId);
                     response = new Gson().toJson(vendor);
 
                 } else if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-                    // If there is a search term, perform a search
-                    System.out.println("[DEBUG] Performing search for term: " + searchTerm);
                     List<Vendors> vendors = searchVendorsAndProducts(searchTerm);
                     response = new Gson().toJson(vendors);
                 } else {
-                    // Otherwise, get all vendors
-                    System.out.println("[DEBUG] Fetching all vendors.");
                     List<Vendors> vendors = getAllVendors();
                     response = new Gson().toJson(vendors);
                 }
@@ -64,7 +58,6 @@ public class VendorRoutes implements HttpHandler {
         sendResponse(exchange, response, statusCode);
     }
 
-    // --- NEW METHOD: To get a single vendor by their ID ---
     private Vendors getVendorById(int vendorId) throws SQLException {
         String sql = "SELECT * FROM vendors WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -79,14 +72,14 @@ public class VendorRoutes implements HttpHandler {
                     rs.getInt("user_id"),
                     rs.getString("name"),
                     rs.getString("location"),
-                    rs.getString("specialties")
+                    rs.getString("specialties"),
+                    rs.getString("image_url") // <-- FETCH IMAGE URL
                 );
             }
         }
-        return null; // Return null if not found
+        return null;
     }
 
-    // This method searches both vendor names and product names
     private List<Vendors> searchVendorsAndProducts(String searchTerm) throws SQLException {
         List<Vendors> vendors = new ArrayList<>();
         String sql = "SELECT DISTINCT v.* FROM vendors v " +
@@ -107,14 +100,14 @@ public class VendorRoutes implements HttpHandler {
                     rs.getInt("user_id"),
                     rs.getString("name"),
                     rs.getString("location"),
-                    rs.getString("specialties")
+                    rs.getString("specialties"),
+                    rs.getString("image_url") // <-- FETCH IMAGE URL
                 ));
             }
         }
         return vendors;
     }
 
-    // This method gets all vendors (the original functionality)
     private List<Vendors> getAllVendors() throws SQLException {
         List<Vendors> vendors = new ArrayList<>();
         String sql = "SELECT * FROM vendors";
@@ -128,14 +121,14 @@ public class VendorRoutes implements HttpHandler {
                     rs.getInt("user_id"),
                     rs.getString("name"),
                     rs.getString("location"),
-                    rs.getString("specialties")
+                    rs.getString("specialties"),
+                    rs.getString("image_url") // <-- FETCH IMAGE URL
                 ));
             }
         }
         return vendors;
     }
     
-    // Helper method to parse query parameters from the URL
     private String getQueryParam(String query, String paramName) {
         if (query == null) return null;
         for (String pair : query.split("&")) {
