@@ -14,21 +14,21 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
 
     <!-- Navbar -->
     <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo and Brand -->
-                <a class="flex items-center space-x-3" href="index.html">
+                <a class="flex items-center space-x-3" href="#">
                     <img src="images/ProxiMart.png" alt="Proximart Logo" class="h-10 w-10 rounded-md">
                     <span class="text-2xl font-bold">ProxiMart</span>
                 </a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="index.html" class="font-semibold hover:text-green-300 transition-colors">Home</a>
+                    <a href="#" class="font-semibold hover:text-green-300 transition-colors">Home</a>
                     <a href="#shops" class="hover:text-green-300 transition-colors">Shops</a>
                     <a href="profile.html" class="hover:text-green-300 transition-colors">Profile</a>
                     <a href="cart.html" class="relative">
@@ -50,7 +50,7 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2">
-            <a href="index.html" class="block font-semibold hover:text-green-300 transition-colors">Home</a>
+            <a href="#" class="block font-semibold hover:text-green-300 transition-colors">Home</a>
             <a href="#shops" class="block hover:text-green-300 transition-colors">Shops</a>
             <a href="profile.html" class="block hover:text-green-300 transition-colors">Profile</a>
             <a href="cart.html" class="block hover:text-green-300 transition-colors">Cart</a>
@@ -67,11 +67,11 @@
             <h1 class="text-4xl md:text-5xl font-bold mb-2">Welcome to ProxiMart</h1>
             <p class="text-lg md:text-xl mb-6">Your Connection to Local Shops</p>
             
-            <!-- Search Bar -->
+            <!-- Search Bar with IDs Added -->
             <div class="w-full max-w-xl">
                 <div class="flex rounded-full bg-white shadow-lg p-1">
-                    <input class="w-full rounded-full py-3 px-6 text-gray-700 leading-tight focus:outline-none" type="text" placeholder="Search for shops or items...">
-                    <button class="bg-green-600 text-white rounded-full p-3 hover:bg-green-700 focus:outline-none">
+                    <input id="search-input" class="w-full rounded-full py-3 px-6 text-gray-700 leading-tight focus:outline-none" type="text" placeholder="Search for shops or items...">
+                    <button id="search-button" class="bg-green-600 text-white rounded-full p-3 hover:bg-green-700 focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                 </div>
@@ -79,12 +79,12 @@
         </div>
     </section>
 
-    <!-- Shops Section (Formerly Specials) -->
+    <!-- Shops Section -->
     <section id="shops" class="bg-gray-100 py-16">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-10">Our Shops</h2>
             <div id="shops-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Shop cards will be dynamically inserted here by your script.js -->
+                <!-- Shops will be dynamically inserted here by script.js -->
                 <p class="col-span-full text-gray-500">Loading shops...</p>
             </div>
         </div>
@@ -98,7 +98,7 @@
         </div>
     </footer>
 
-    <!-- This links to your existing script.js file -->
+    <!-- Link to the external JavaScript file -->
     <script src="script.js" defer></script>
 </body>
 </html>

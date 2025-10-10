@@ -3,20 +3,20 @@ package backend.routes;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.google.gson.Gson;
+
 import backend.db.DBConnection;
 import backend.models.Vendors;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class VendorRoutes implements HttpHandler {
 
@@ -27,34 +27,36 @@ public class VendorRoutes implements HttpHandler {
             return;
         }
 
-        String response = "{\"message\":\"Invalid request\"}";
-        int statusCode = 400;
+        String response = "[]";
+        int statusCode = 200;
 
         try {
             if ("GET".equals(exchange.getRequestMethod())) {
                 String query = exchange.getRequestURI().getQuery();
-                Map<String, String> queryParams = parseQuery(query);
+                String searchTerm = getQueryParam(query, "q");
+                String vendorIdStr = getQueryParam(query, "id"); // <-- ADDED THIS LINE
 
-                // UPDATED LOGIC: Check if a specific ID is requested
-                if (queryParams.containsKey("id")) {
-                    int vendorId = Integer.parseInt(queryParams.get("id"));
+                if (vendorIdStr != null) {
+                    // --- NEW LOGIC: If an ID is provided, get a single vendor ---
+                    System.out.println("[DEBUG] Fetching single vendor with ID: " + vendorIdStr);
+                    int vendorId = Integer.parseInt(vendorIdStr);
                     Vendors vendor = getVendorById(vendorId);
-                    if (vendor != null) {
-                        response = new Gson().toJson(vendor);
-                        statusCode = 200;
-                    } else {
-                        response = "{\"message\":\"Vendor not found\"}";
-                        statusCode = 404;
-                    }
+                    response = new Gson().toJson(vendor);
+
+                } else if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                    // If there is a search term, perform a search
+                    System.out.println("[DEBUG] Performing search for term: " + searchTerm);
+                    List<Vendors> vendors = searchVendorsAndProducts(searchTerm);
+                    response = new Gson().toJson(vendors);
                 } else {
-                    // Original logic: get all vendors
+                    // Otherwise, get all vendors
+                    System.out.println("[DEBUG] Fetching all vendors.");
                     List<Vendors> vendors = getAllVendors();
                     response = new Gson().toJson(vendors);
-                    statusCode = 200;
                 }
             }
-        } catch (Exception e) {
-            response = "{\"success\":false, \"message\":\"Server error: " + e.getMessage() + "\"}";
+        } catch (SQLException e) {
+            response = "{\"success\":false, \"message\":\"Database error: " + e.getMessage() + "\"}";
             statusCode = 500;
             e.printStackTrace();
         }
@@ -62,13 +64,43 @@ public class VendorRoutes implements HttpHandler {
         sendResponse(exchange, response, statusCode);
     }
 
-    // --- Database Logic ---
-    private List<Vendors> getAllVendors() throws SQLException {
-        List<Vendors> vendors = new ArrayList<>();
-        String sql = "SELECT * FROM vendors";
+    // --- NEW METHOD: To get a single vendor by their ID ---
+    private Vendors getVendorById(int vendorId) throws SQLException {
+        String sql = "SELECT * FROM vendors WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, vendorId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return new Vendors(
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("name"),
+                    rs.getString("location"),
+                    rs.getString("specialties")
+                );
+            }
+        }
+        return null; // Return null if not found
+    }
+
+    // This method searches both vendor names and product names
+    private List<Vendors> searchVendorsAndProducts(String searchTerm) throws SQLException {
+        List<Vendors> vendors = new ArrayList<>();
+        String sql = "SELECT DISTINCT v.* FROM vendors v " +
+                     "LEFT JOIN products p ON v.id = p.vendor_id " +
+                     "WHERE v.name LIKE ? OR p.name LIKE ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String likeTerm = "%" + searchTerm + "%";
+            pstmt.setString(1, likeTerm);
+            pstmt.setString(2, likeTerm);
+
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 vendors.add(new Vendors(
                     rs.getInt("id"),
@@ -82,37 +114,42 @@ public class VendorRoutes implements HttpHandler {
         return vendors;
     }
 
-    // --- NEW METHOD: Get a single vendor by their ID ---
-    private Vendors getVendorById(int vendorId) throws SQLException {
-        String sql = "SELECT * FROM vendors WHERE id = ?";
+    // This method gets all vendors (the original functionality)
+    private List<Vendors> getAllVendors() throws SQLException {
+        List<Vendors> vendors = new ArrayList<>();
+        String sql = "SELECT * FROM vendors";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, vendorId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Vendors(
-                        rs.getInt("id"),
-                        rs.getInt("user_id"),
-                        rs.getString("name"),
-                        rs.getString("location"),
-                        rs.getString("specialties")
-                    );
-                }
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                vendors.add(new Vendors(
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("name"),
+                    rs.getString("location"),
+                    rs.getString("specialties")
+                ));
             }
         }
-        return null; // Return null if no vendor is found
+        return vendors;
     }
-
-    // --- Helper Methods ---
-    private Map<String, String> parseQuery(String query) {
-        if (query == null || query.isEmpty()) return Map.of();
-        return Stream.of(query.split("&")).map(s -> s.split("=")).collect(Collectors.toMap(a -> a[0], a -> a.length > 1 ? a[1] : ""));
+    
+    // Helper method to parse query parameters from the URL
+    private String getQueryParam(String query, String paramName) {
+        if (query == null) return null;
+        for (String pair : query.split("&")) {
+            int idx = pair.indexOf("=");
+            if (idx > 0 && pair.substring(0, idx).equals(paramName)) {
+                return URLDecoder.decode(pair.substring(idx + 1), StandardCharsets.UTF_8);
+            }
+        }
+        return null;
     }
-
+    
     private void handleOptionsRequest(HttpExchange exchange) throws IOException {
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().set("Access-control-allow-methods", "GET, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, OPTIONS");
         exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         exchange.sendResponseHeaders(204, -1);
     }
